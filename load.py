@@ -2,8 +2,6 @@
 
 import os
 
-# execfile(os.getcwd() + "/config/config.py")
-
 exec(open(os.getcwd() + "/config/config.py").read())
 
 if len(sys.argv) < 2:
@@ -29,76 +27,43 @@ for lan in language:
 
     if os.path.exists("card_data/%s/%s_%s_all.html"%(set, set, lan)) == False:
     
-        f = urllib.request.urlopen("http://magiccards.info/%s/%s.html"%(set, lan))
-        line = f.read()
-        
-        w = open("card_data/%s/%s_%s_all.html"%(set, set, lan), "w")
-        w.write(line.decode('cp950','ignore'))
+        urllib.request.urlretrieve("http://magiccards.info/%s/%s.html"%(set, lan), "card_data/%s/%s_%s_all.html"%(set, set, lan))
+
         print ("%s/%s_%s_all.html"%(set, set, lan))
-        
-        f.close()
-        w.close()
         
     for i in range(total_num[set]):
     
         index = i + 1
         print (index)
         
-        # isd dka
-        if set == 'isd' or set == 'dka':
+        # isd dka dgm
+        if set in flip.keys():
             
             if index in flip[set]:
 
                 if os.path.exists("card_data/%s/%s/%da.html"% (set, lan, index)) == False:
             
-                    fa = urllib.request.urlopen("http://magiccards.info/%s/%s/%da.html" % (set, lan, index))
-                    fb = urllib.request.urlopen("http://magiccards.info/%s/%s/%db.html" % (set, lan, index))
-                    
-                    linea = fa.read()
-                    lineb = fb.read()
-                    
-                    wa = open("card_data/%s/%s/%da.html"% (set, lan, index), "w")
-                    wb = open("card_data/%s/%s/%db.html"% (set, lan, index), "w")
-                    
-                    wa.write(linea.decode('cp950','ignore'))
-                    wb.write(lineb.decode('cp950','ignore'))
+                    urllib.request.urlretrieve("http://magiccards.info/%s/%s/%da.html" % (set, lan, index), "card_data/%s/%s/%da.html"% (set, lan, index))
+                    urllib.request.urlretrieve("http://magiccards.info/%s/%s/%db.html" % (set, lan, index), "card_data/%s/%s/%db.html"% (set, lan, index))
                 
-                    print ('save %s %d.html'%(set, index))
-                    
-                    fa.close()
-                    fb.close()
-                
-                    wa.close()
-                    wb.close()
+                    print ('save %s %da.html'%(set, index))
+                    print ('save %s %db.html'%(set, index))
                     
             else:
             
                 if os.path.exists("card_data/%s/%s/%d.html"% (set, lan, index)) == False:
                 
-                    f = urllib.request.urlopen("http://magiccards.info/%s/%s/%d.html" % (set, lan, index))
-                        
-                    line = f.read()
-                            
-                    w = open("card_data/%s/%s/%d.html"% (set, lan, index), "w")
-                    w.write(line.decode('cp950','ignore'))
+                    urllib.request.urlretrieve("http://magiccards.info/%s/%s/%d.html" % (set, lan, index), "card_data/%s/%s/%d.html"% (set, lan, index))
                         
                     print ('save %s %d.html'%(set, index))
-                                
-                    f.close()
-                    w.close()
+                    
+            time.sleep(1)
                     
         else:
             if os.path.exists("card_data/%s/%s/%d.html"% (set, lan, index)) == False:
                 
-                f = urllib.request.urlopen("http://magiccards.info/%s/%s/%d.html" % (set, lan, index))
-                    
-                line = f.read()
-                        
-                w = open("card_data/%s/%s/%d.html"% (set, lan, index), "w")
-                w.write(line.decode('cp950','ignore'))
+                urllib.request.urlretrieve("http://magiccards.info/%s/%s/%d.html" % (set, lan, index), "card_data/%s/%s/%d.html"% (set, lan, index))                    
                     
                 print ('save %s %d.html'%(set, index))
                             
-                f.close()
-                w.close()
                 time.sleep(1)
